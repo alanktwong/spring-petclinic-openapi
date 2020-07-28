@@ -8,6 +8,9 @@ group = "org.springframework.samples"
 version = "2.2.5.RELEASE"
 
 plugins {
+    id("java")
+    // checkstyle
+    jacoco
     // Increase spring boot version?
     id("org.springframework.boot") version "2.2.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
@@ -46,12 +49,6 @@ tasks {
         gradleVersion = Versions.gradle
     }
 }
-
-// add checkstyle
-// https://github.com/alanktwong/spring-petclinic-openapi/issues/10
-
-// add jacoco
-// https://github.com/alanktwong/spring-petclinic-openapi/issues/6
 
 // add OpenAPI generator
 // https://github.com/alanktwong/spring-petclinic-openapi/issues/7
@@ -108,6 +105,7 @@ detekt {
 
 dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+    // checkstyleConfig("com.puppycrawl.tools:checkstyle:${Versions.checkstyle}") { transitive = false }
 
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
@@ -149,6 +147,47 @@ dependencies {
     runtime("org.glassfish.jaxb:jaxb-runtime:${Versions.jaxb}")
     runtime("javax.activation:activation:${Versions.activation}")
     // developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
+
+// add checkstyle
+// https://github.com/alanktwong/spring-petclinic-openapi/issues/10
+
+// checkstyle {
+//    toolVersion = Versions.checkstyle
+//    configFile = file("$rootDir/config/checkstyle/google_checkstyle.xml")
+//    configProperties = mapOf(
+//        "org.checkstyle.google.suppressionfilter.config" to file("$rootDir/config/checkstyle/suppressions.xml").absolutePath
+//    )
+//    isIgnoreFailures = false
+//    maxWarnings = 0
+// }
+
+// add jacoco
+jacoco {
+    toolVersion = Versions.jacoco
+}
+
+tasks {
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                element = "SOURCEFILE"
+                excludes = listOf("*Application.java")
+
+                limit {
+                    counter = "INSTRUCTION"
+                    value = "COVEREDRATIO"
+                    minimum = BigDecimal(0.75)
+                }
+            }
+        }
+    }
+    jacocoTestReport {
+        reports {
+            xml.isEnabled = true
+            xml.destination = file("$buildDir/reports/jacoco/report.xml")
+        }
+    }
 }
 
 // https://github.com/alanktwong/spring-petclinic-openapi/issues/2

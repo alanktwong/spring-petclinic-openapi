@@ -10,6 +10,7 @@ object Versions {
     const val junit = "4.12"
     const val jaxb = "2.3.0"
     const val activation = "1.1.1"
+    const val checkstyle = "8.30"
 
     const val jacksonDatabindNullable = "0.2.1"
     const val springDataJdbc = "1.2.1.RELEASE"

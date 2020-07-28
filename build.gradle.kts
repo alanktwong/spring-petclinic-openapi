@@ -8,20 +8,26 @@ group = "org.springframework.samples"
 version = "2.2.5.RELEASE"
 
 plugins {
-    val kotlinVersion = "1.3.72"
     // Increase spring boot version?
     id("org.springframework.boot") version "2.2.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("com.google.cloud.tools.jib") version "1.3.0"
+
+    val kotlinVersion = "1.3.72"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("plugin.allopen") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
+
+    id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
+    id("io.gitlab.arturbosch.detekt") version "1.10.0"
 }
 
 java {
     assertJavaVersions()
     sourceCompatibility = JavaVersion.VERSION_11
 }
-
 
 tasks {
     withType<KotlinCompile> {
@@ -57,7 +63,52 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
 }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.Embeddable")
+    annotation("javax.persistence.MappedSuperclass")
+}
+
+ktlint {
+    ignoreFailures.set(false)
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(":ktlintFormat")
+}
+
+detekt {
+    toolVersion = Versions.detekt
+    // fail build on any finding
+    failFast = false
+    // preconfigure defaults
+    buildUponDefaultConfig = true
+    // point to your custom config defining rules to run, overwriting default behavior
+    config = files("$projectDir/config/detekt/detekt.yml")
+    // a way of suppressing issues before introducing detekt
+    // baseline = file("$projectDir/gradle/baseline.xml")
+
+    reports {
+        html {
+            // observe findings in your browser with structure and code snippets
+            enabled = true
+            destination = file("$buildDir/reports/detekt/detekt.html")
+        }
+        xml {
+            // checkstyle like format mainly for integrations like Jenkins
+            enabled = true
+            destination = file("$buildDir/reports/detekt/detekt.xml")
+        }
+        txt {
+            // similar to the console output, contains issue signature to manually edit baseline files
+            enabled = false
+        }
+    }
+}
+
 dependencies {
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -86,6 +137,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("com.ninja-squad:springmockk:${Versions.springMockk}")
 
     runtime("org.hsqldb:hsqldb")
     // runtime("mysql:mysql-connector-java")
@@ -106,4 +158,3 @@ jib {
         tags = setOf(project.version.toString(), "latest")
     }
 }
-

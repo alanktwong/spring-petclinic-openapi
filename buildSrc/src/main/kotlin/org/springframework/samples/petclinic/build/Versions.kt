@@ -18,6 +18,9 @@ object Versions {
     const val boostrapVersion = "3.3.6"
     const val jQueryVersion = "2.2.4"
     const val jQueryUIVersion = "1.11.4"
+
+    const val springMockk = "1.1.3"
+    const val detekt = "1.10.0"
 }
 
 fun JavaPluginExtension.assertJavaVersions() {

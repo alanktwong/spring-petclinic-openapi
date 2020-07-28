@@ -87,10 +87,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    // runtimeOnly("com.h2database:h2")
-    // runtimeOnly("mysql:mysql-connector-java")
-    runtimeOnly("org.postgresql:postgresql")
-
+    runtime("org.hsqldb:hsqldb")
+    // runtime("mysql:mysql-connector-java")
+    // runtime("org.postgresql:postgresql")
 
     runtime("javax.xml.bind:jaxb-api:${Versions.jaxb}")
     runtime("com.sun.xml.bind:jaxb-core:${Versions.jaxb}")

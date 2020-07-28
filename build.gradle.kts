@@ -1,27 +1,27 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.samples.petclinic.build.Versions
+import org.springframework.samples.petclinic.build.assertJavaVersions
 
 description = "Open API version of the Spring Petclinic application with Kotlin"
 group = "org.springframework.samples"
 // Align with Spring Version
-version = "2.3.0.RELEASE"
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-}
+version = "2.2.5.RELEASE"
 
 plugins {
     val kotlinVersion = "1.3.72"
-    id("org.springframework.boot") version "2.3.0.RELEASE"
+    // Increase spring boot version?
+    id("org.springframework.boot") version "2.2.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("com.google.cloud.tools.jib") version "1.3.0"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 }
 
-val boostrapVersion = "3.3.6"
-val jQueryVersion = "2.2.4"
-val jQueryUIVersion = "1.11.4"
+java {
+    assertJavaVersions()
+    sourceCompatibility = JavaVersion.VERSION_11
+}
+
 
 tasks {
     withType<KotlinCompile> {
@@ -41,6 +41,15 @@ tasks {
     }
 }
 
+// add checkstyle
+// https://github.com/alanktwong/spring-petclinic-openapi/issues/10
+
+// add jacoco
+// https://github.com/alanktwong/spring-petclinic-openapi/issues/6
+
+// add OpenAPI generator
+// https://github.com/alanktwong/spring-petclinic-openapi/issues/7
+
 repositories {
     mavenCentral()
     jcenter()
@@ -49,32 +58,49 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.data:spring-data-jdbc-core:${Versions.springDataJdbc}")
+    // {
+    //     exclude(group = "org.springframework")
+    // }
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    // implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.core:jackson-core")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("javax.cache:cache-api")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.webjars:webjars-locator-core")
-    implementation("org.webjars:jquery:$jQueryVersion")
-    implementation("org.webjars:jquery-ui:$jQueryUIVersion")
-    implementation("org.webjars:bootstrap:$boostrapVersion")
+
+    implementation("io.springfox:springfox-swagger2:${Versions.springfox}")
+    implementation("io.springfox:springfox-swagger-ui:${Versions.springfox}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("com.jayway.jsonpath:json-path")
+
+    testImplementation("org.mockito:mockito-core")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("mysql:mysql-connector-java")
+    // runtimeOnly("com.h2database:h2")
+    // runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("org.postgresql:postgresql")
 
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    runtime("javax.xml.bind:jaxb-api:${Versions.jaxb}")
+    runtime("com.sun.xml.bind:jaxb-core:${Versions.jaxb}")
+    runtime("com.sun.xml.bind:jaxb-impl:${Versions.jaxb}")
+    runtime("org.glassfish.jaxb:jaxb-runtime:${Versions.jaxb}")
+    runtime("javax.activation:activation:${Versions.activation}")
+    // developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
+// https://github.com/alanktwong/spring-petclinic-openapi/issues/2
 jib {
     to {
         image = "springcommunity/spring-petclinic-openapi"

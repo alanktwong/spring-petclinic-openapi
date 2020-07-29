@@ -40,6 +40,10 @@ tasks {
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
+    withType<AbstractArchiveTask> {
+        isPreserveFileTimestamps = false
+        isReproducibleFileOrder = true
+    }
     test {
         useJUnitPlatform()
         testLogging {

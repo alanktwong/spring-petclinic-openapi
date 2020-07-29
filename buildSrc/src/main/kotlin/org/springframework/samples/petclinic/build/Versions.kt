@@ -10,7 +10,8 @@ object Versions {
     const val junit = "4.12"
     const val jaxb = "2.3.0"
     const val activation = "1.1.1"
-    const val checkstyle = "8.22"
+    const val checkstyle = "8.23"
+    const val eclipse = "4.10.0"
 
     const val jacksonDatabindNullable = "0.2.1"
     const val jacoco = "0.8.5"

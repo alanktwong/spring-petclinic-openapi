@@ -182,22 +182,25 @@ tasks {
         violationRules {
             rule {
                 element = "SOURCEFILE"
-                excludes = listOf("*Application.java", "**/model/*.java", "*Config.java")
+                excludes = listOf("*Application.java", "**/model/*.java", "*Config.java", "**/CallMonitoringAspect.java")
 
                 limit {
                     counter = "INSTRUCTION"
                     value = "COVEREDRATIO"
-                    minimum = BigDecimal(0.75)
+                    minimum = BigDecimal(0.65)
                 }
             }
         }
     }
     jacocoTestReport {
         reports {
-            xml.isEnabled = true
-            xml.destination = file("$buildDir/reports/jacoco/report.xml")
+            html.isEnabled = true
+            html.destination = file("$buildDir/reports/jacoco/report.html")
         }
     }
+}
+tasks.named("test") {
+    finalizedBy(":jacocoTestReport")
 }
 
 // https://github.com/alanktwong/spring-petclinic-openapi/issues/2
@@ -228,12 +231,10 @@ afterEvaluate {
         }
     }
 
-    if (!hasProperty("skipJacoco")) {
-        tasks.named("jacocoTestReport") {
-            dependsOn(":jacocoTestCoverageVerification")
-        }
-        tasks.named("check") {
-            dependsOn(":jacocoTestReport")
-        }
+    tasks.named("jacocoTestReport") {
+        dependsOn(":jacocoTestCoverageVerification")
+    }
+    tasks.named("check") {
+        dependsOn(":jacocoTestReport")
     }
 }

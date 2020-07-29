@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.service.userService;
+package org.springframework.samples.petclinic.service;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.UserRepository;
-import org.springframework.samples.petclinic.service.UserService;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

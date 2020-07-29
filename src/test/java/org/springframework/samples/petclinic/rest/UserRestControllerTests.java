@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.service.ApplicationTestConfig;
 import org.springframework.samples.petclinic.service.UserService;
-import org.springframework.samples.petclinic.service.clinicService.ApplicationTestConfig;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,8 +53,8 @@ public class UserRestControllerTests
         user.setPassword("password");
         user.setEnabled(true);
         user.addRole("OWNER_ADMIN");
-        ObjectMapper mapper = new ObjectMapper();
-        String newVetAsJSON = mapper.writeValueAsString(user);
+        final var mapper = new ObjectMapper();
+        final var newVetAsJSON = mapper.writeValueAsString(user);
         this.mockMvc.perform(post("/api/users/").content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated());
     }
@@ -67,8 +67,18 @@ public class UserRestControllerTests
         user.setUsername("username");
         user.setPassword("password");
         user.setEnabled(true);
-        ObjectMapper mapper = new ObjectMapper();
-        String newVetAsJSON = mapper.writeValueAsString(user);
+        final var mapper = new ObjectMapper();
+        final var newVetAsJSON = mapper.writeValueAsString(user);
+        this.mockMvc.perform(post("/api/users/").content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testCreateNullUserUnauthorized() throws Exception
+    {
+        final var mapper = new ObjectMapper();
+        final var newVetAsJSON = mapper.writeValueAsString(null);
         this.mockMvc.perform(post("/api/users/").content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isBadRequest());
     }

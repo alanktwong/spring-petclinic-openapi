@@ -45,6 +45,7 @@ tasks {
         isReproducibleFileOrder = true
     }
     test {
+        jvmArgs = listOf("-XX:TieredStopAtLevel=1")
         useJUnitPlatform()
         testLogging {
             events("FAILED", "SKIPPED")

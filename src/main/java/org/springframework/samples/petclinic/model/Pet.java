@@ -41,8 +41,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import org.springframework.samples.petclinic.rest.JacksonCustomPetDeserializer;
-import org.springframework.samples.petclinic.rest.JacksonCustomPetSerializer;
+import org.springframework.samples.petclinic.rest.deserializer.JacksonCustomPetDeserializer;
+import org.springframework.samples.petclinic.rest.serializer.JacksonCustomPetSerializer;
 
 /**
  * Simple business object representing a pet.

@@ -38,8 +38,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
-import org.springframework.samples.petclinic.rest.JacksonCustomOwnerDeserializer;
-import org.springframework.samples.petclinic.rest.JacksonCustomOwnerSerializer;
+import org.springframework.samples.petclinic.rest.deserializer.JacksonCustomOwnerDeserializer;
+import org.springframework.samples.petclinic.rest.serializer.JacksonCustomOwnerSerializer;
 
 /**
  * Simple JavaBean domain object representing an owner.

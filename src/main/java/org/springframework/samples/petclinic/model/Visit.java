@@ -32,8 +32,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import org.springframework.samples.petclinic.rest.JacksonCustomVisitDeserializer;
-import org.springframework.samples.petclinic.rest.JacksonCustomVisitSerializer;
+import org.springframework.samples.petclinic.rest.deserializer.JacksonCustomVisitDeserializer;
+import org.springframework.samples.petclinic.rest.serializer.JacksonCustomVisitSerializer;
 
 /**
  * Simple JavaBean domain object representing a visit.

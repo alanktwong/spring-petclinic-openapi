@@ -11,17 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @ConditionalOnProperty(name = "petclinic.security.enable", havingValue = "false")
-public class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
-
+public class DisableSecurityConfig extends WebSecurityConfigurerAdapter
+{
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception
+    {
         // @formatter:off
-        http
-            .authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
-            .csrf()
-                .disable();
+        http.authorizeRequests().anyRequest().permitAll().and().csrf().disable();
         // @formatter:on
     }
 }

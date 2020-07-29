@@ -10,30 +10,34 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "roles" ,uniqueConstraints = @UniqueConstraint(columnNames = {"username", "role"}))
-public class Role extends BaseEntity {
-
+@Table(name = "roles", uniqueConstraints = @UniqueConstraint(columnNames = { "username", "role" }))
+public class Role extends BaseEntity
+{
     @ManyToOne
     @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 
-    @Column( name = "role")
+    @Column(name = "role")
     private String name;
 
-    public User getUser() {
+    public User getUser()
+    {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(final User user)
+    {
         this.user = user;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name)
+    {
         this.name = name;
     }
 }

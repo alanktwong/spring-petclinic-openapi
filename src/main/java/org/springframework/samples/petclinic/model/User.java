@@ -10,13 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
-public class User {
-
+public class User
+{
     @Id
     @Column(name = "username")
     private String username;
@@ -28,43 +29,54 @@ public class User {
     private Boolean enabled;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @NotEmpty
     private Set<Role> roles;
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username)
+    {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password)
+    {
         this.password = password;
     }
 
-    public Boolean getEnabled() {
+    public Boolean getEnabled()
+    {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(final Boolean enabled)
+    {
         this.enabled = enabled;
     }
 
-    public Set<Role> getRoles() {
+    public Set<Role> getRoles()
+    {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(final Set<Role> roles)
+    {
         this.roles = roles;
     }
 
     @JsonIgnore
-    public void addRole(String roleName) {
-        if(this.roles == null) {
+    public void addRole(final String roleName)
+    {
+        if (this.roles == null)
+        {
             this.roles = new HashSet<>();
         }
         Role role = new Role();

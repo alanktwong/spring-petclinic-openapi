@@ -36,8 +36,8 @@ import org.springframework.util.StopWatch;
  */
 @ManagedResource("petclinic:type=CallMonitor")
 @Aspect
-public class CallMonitoringAspect {
-
+public class CallMonitoringAspect
+{
     private boolean enabled = true;
 
     private int callCount = 0;
@@ -45,53 +45,67 @@ public class CallMonitoringAspect {
     private long accumulatedCallTime = 0;
 
     @ManagedAttribute
-    public boolean isEnabled() {
+    public boolean isEnabled()
+    {
         return enabled;
     }
 
     @ManagedAttribute
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(final boolean enabled)
+    {
         this.enabled = enabled;
     }
 
     @ManagedOperation
-    public void reset() {
+    public void reset()
+    {
         this.callCount = 0;
         this.accumulatedCallTime = 0;
     }
 
     @ManagedAttribute
-    public int getCallCount() {
+    public int getCallCount()
+    {
         return callCount;
     }
 
     @ManagedAttribute
-    public long getCallTime() {
+    public long getCallTime()
+    {
         if (this.callCount > 0)
+        {
             return this.accumulatedCallTime / this.callCount;
+        }
         else
+        {
             return 0;
+        }
     }
 
-
     @Around("within(@org.springframework.stereotype.Repository *)")
-    public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (this.enabled) {
-            StopWatch sw = new StopWatch(joinPoint.toShortString());
-
+    public Object invoke(final ProceedingJoinPoint joinPoint) throws Throwable
+    {
+        if (this.enabled)
+        {
+            final var sw = new StopWatch(joinPoint.toShortString());
             sw.start("invoke");
-            try {
+            try
+            {
                 return joinPoint.proceed();
-            } finally {
+            }
+            finally
+            {
                 sw.stop();
-                synchronized (this) {
+                synchronized (this)
+                {
                     this.callCount++;
                     this.accumulatedCallTime += sw.getTotalTimeMillis();
                 }
             }
-        } else {
+        }
+        else
+        {
             return joinPoint.proceed();
         }
     }
-
 }

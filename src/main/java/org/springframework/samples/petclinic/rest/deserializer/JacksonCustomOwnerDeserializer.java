@@ -14,51 +14,52 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.rest;
+package org.springframework.samples.petclinic.rest.deserializer;
 
 import java.io.IOException;
 
-import org.springframework.samples.petclinic.model.Owner;
-
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+
+import org.springframework.samples.petclinic.model.Owner;
 
 /**
  * @author Vitaliy Fedoriv
  *
  */
+public class JacksonCustomOwnerDeserializer extends StdDeserializer<Owner>
+{
+    public JacksonCustomOwnerDeserializer()
+    {
+        this(null);
+    }
 
-public class JacksonCustomOwnerDeserializer extends StdDeserializer<Owner> {
+    public JacksonCustomOwnerDeserializer(final Class<Owner> t)
+    {
+        super(t);
+    }
 
-	public JacksonCustomOwnerDeserializer(){
-		this(null);
-	}
-
-	public JacksonCustomOwnerDeserializer(Class<Owner> t) {
-		super(t);
-	}
-
-	@Override
-	public Owner deserialize(JsonParser parser, DeserializationContext context) throws IOException, JsonProcessingException {
-		JsonNode node = parser.getCodec().readTree(parser);
-		Owner owner = new Owner();
-		String firstName = node.get("firstName").asText(null);
-		String lastName = node.get("lastName").asText(null);
-		String address = node.get("address").asText(null);
-		String city = node.get("city").asText(null);
-		String telephone = node.get("telephone").asText(null);
-		if (node.hasNonNull("id")) {
-			owner.setId(node.get("id").asInt());
-		}
+    @Override
+    public Owner deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
+    {
+        final JsonNode node = parser.getCodec().readTree(parser);
+        final var owner = new Owner();
+        final var firstName = node.get("firstName").asText(null);
+        final var lastName = node.get("lastName").asText(null);
+        final var address = node.get("address").asText(null);
+        final var city = node.get("city").asText(null);
+        final var telephone = node.get("telephone").asText(null);
+        if (node.hasNonNull("id"))
+        {
+            owner.setId(node.get("id").asInt());
+        }
         owner.setFirstName(firstName);
         owner.setLastName(lastName);
         owner.setAddress(address);
         owner.setCity(city);
         owner.setTelephone(telephone);
-		return owner;
-	}
-
+        return owner;
+    }
 }

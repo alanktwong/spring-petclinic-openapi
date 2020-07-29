@@ -20,7 +20,6 @@ import javax.persistence.MappedSuperclass;
 
 import javax.validation.constraints.NotEmpty;
 
-
 /**
  * Simple JavaBean domain object adds a name property to <code>BaseEntity</code>. Used as a base class for objects
  * needing these properties.
@@ -29,23 +28,25 @@ import javax.validation.constraints.NotEmpty;
  * @author Juergen Hoeller
  */
 @MappedSuperclass
-public class NamedEntity extends BaseEntity {
-
+public class NamedEntity extends BaseEntity
+{
     @Column(name = "name")
     @NotEmpty
     private String name;
 
-    public String getName() {
+    public String getName()
+    {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name)
+    {
         this.name = name;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.getName();
     }
-
 }

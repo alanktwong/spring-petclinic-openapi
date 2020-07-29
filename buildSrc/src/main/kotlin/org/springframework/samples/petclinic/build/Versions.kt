@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.build
 
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.Project
 
 object Versions {
     const val java = "11"
@@ -26,4 +27,12 @@ object Versions {
 
 fun JavaPluginExtension.assertJavaVersions() {
     assert(listOf("1.8", "11", "12", "13").contains(System.getProperty("java.specification.version")))
+}
+
+fun Project.skipErrorProne(): Boolean {
+    return hasProperty("skipErrorProne")
+}
+
+fun Project.skipFormat(): Boolean {
+    return hasProperty("skipFormat")
 }

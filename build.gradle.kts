@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.samples.petclinic.build.Versions
 import org.springframework.samples.petclinic.build.assertJavaVersions
+import org.springframework.samples.petclinic.build.skipFormat
+import org.springframework.samples.petclinic.build.skipErrorProne
 
 description = "Open API version of the Spring Petclinic application with Kotlin"
 group = "org.springframework.samples"
@@ -26,6 +28,11 @@ plugins {
     id("com.diffplug.gradle.spotless") version "3.27.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.10.0"
+    id("net.ltgt.errorprone") version "1.1.1" apply false
+}
+
+if (!skipErrorProne()) {
+    apply(plugin = "net.ltgt.errorprone")
 }
 
 java {
@@ -217,7 +224,7 @@ jib {
 }
 
 afterEvaluate {
-    if (!hasProperty("skipFormat")) {
+    if (!skipFormat()) {
         tasks.named("checkstyleMain") {
             dependsOn(":spotlessApply")
         }

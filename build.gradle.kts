@@ -109,11 +109,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.data:spring-data-jdbc-core:${Versions.springDataJdbc}")
-    // {
-    //     exclude(group = "org.springframework")
-    // }
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     // implementation("org.springframework.boot:spring-boot-starter-thymeleaf")

@@ -13,7 +13,6 @@ object Versions {
     const val checkstyle = "8.22"
 
     const val jacksonDatabindNullable = "0.2.1"
-    const val springDataJdbc = "1.2.1.RELEASE"
     const val jacoco = "0.8.5"
 
     const val boostrapVersion = "3.3.6"

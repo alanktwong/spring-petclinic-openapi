@@ -182,7 +182,7 @@ tasks {
         violationRules {
             rule {
                 element = "SOURCEFILE"
-                excludes = listOf("*Application.java")
+                excludes = listOf("*Application.java", "**/model/*.java", "*Config.java")
 
                 limit {
                     counter = "INSTRUCTION"

@@ -38,8 +38,13 @@ import org.springframework.samples.petclinic.service.UserService;
 @RequestMapping("api/users")
 public class UserRestController
 {
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public UserRestController(final UserService userService)
+    {
+        this.userService = userService;
+    }
 
     @PreAuthorize("hasRole(@roles.ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")

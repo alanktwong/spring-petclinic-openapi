@@ -49,8 +49,13 @@ import org.springframework.samples.petclinic.service.ClinicService;
 @RequestMapping("api/pets")
 public class PetRestController
 {
-    @Autowired
     private ClinicService clinicService;
+
+    @Autowired
+    public PetRestController(final ClinicService clinicService)
+    {
+        this.clinicService = clinicService;
+    }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @RequestMapping(value = "/{petId}", method = RequestMethod.GET, produces = "application/json")

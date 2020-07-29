@@ -23,7 +23,6 @@ import org.springframework.samples.petclinic.service.clinicService.ApplicationTe
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationTestConfig.class)
@@ -49,7 +48,7 @@ public class UserRestControllerTests
     @WithMockUser(roles = "ADMIN")
     public void testCreateUserSuccess() throws Exception
     {
-        User user = new User();
+        final var user = new User();
         user.setUsername("username");
         user.setPassword("password");
         user.setEnabled(true);
@@ -64,7 +63,7 @@ public class UserRestControllerTests
     @WithMockUser(roles = "ADMIN")
     public void testCreateUserError() throws Exception
     {
-        User user = new User();
+        final var user = new User();
         user.setUsername("username");
         user.setPassword("password");
         user.setEnabled(true);

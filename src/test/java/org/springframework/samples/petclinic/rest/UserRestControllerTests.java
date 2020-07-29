@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
@@ -27,7 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationTestConfig.class)
 @WebAppConfiguration
-public class UserRestControllerTests {
+public class UserRestControllerTests
+{
 
     @Mock
     private UserService userService;
@@ -38,37 +38,38 @@ public class UserRestControllerTests {
     private MockMvc mockMvc;
 
     @Before
-    public void initVets() {
+    public void initVets()
+    {
         this.mockMvc = MockMvcBuilders.standaloneSetup(userRestController)
-            .setControllerAdvice(new ExceptionControllerAdvice()).build();
+                .setControllerAdvice(new ExceptionControllerAdvice()).build();
     }
 
     @Test
-    @WithMockUser(roles="ADMIN")
-    public void testCreateUserSuccess() throws Exception {
+    @WithMockUser(roles = "ADMIN")
+    public void testCreateUserSuccess() throws Exception
+    {
         User user = new User();
         user.setUsername("username");
         user.setPassword("password");
         user.setEnabled(true);
-        user.addRole( "OWNER_ADMIN" );
+        user.addRole("OWNER_ADMIN");
         ObjectMapper mapper = new ObjectMapper();
         String newVetAsJSON = mapper.writeValueAsString(user);
-        this.mockMvc.perform(post("/api/users/")
-            .content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isCreated());
+        this.mockMvc.perform(post("/api/users/").content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated());
     }
 
     @Test
-    @WithMockUser(roles="ADMIN")
-    public void testCreateUserError() throws Exception {
+    @WithMockUser(roles = "ADMIN")
+    public void testCreateUserError() throws Exception
+    {
         User user = new User();
         user.setUsername("username");
         user.setPassword("password");
         user.setEnabled(true);
         ObjectMapper mapper = new ObjectMapper();
         String newVetAsJSON = mapper.writeValueAsString(user);
-        this.mockMvc.perform(post("/api/users/")
-            .content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/users/").content(newVetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isBadRequest());
     }
 }

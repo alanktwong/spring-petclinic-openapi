@@ -4,15 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.samples.petclinic.model.Role;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService
 {
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(final UserRepository userRepository)
+    {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional
@@ -23,7 +27,7 @@ public class UserServiceImpl implements UserService
             throw new Exception("User must have at least a role set!");
         }
 
-        for (Role role : user.getRoles())
+        for (final var role : user.getRoles())
         {
             if (!role.getName().startsWith("ROLE_"))
             {

@@ -48,8 +48,7 @@ public class JacksonCustomPetDeserializer extends StdDeserializer<Pet>
     }
 
     @Override
-    public Pet deserialize(final JsonParser parser, final DeserializationContext context)
-        throws IOException
+    public Pet deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
     {
         final var formatter = new SimpleDateFormat("yyyy/MM/dd");
         final var pet = new Pet();

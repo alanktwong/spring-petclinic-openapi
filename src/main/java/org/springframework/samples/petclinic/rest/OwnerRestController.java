@@ -112,9 +112,8 @@ public class OwnerRestController
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @RequestMapping(value = "/{ownerId}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Owner> updateOwner(@PathVariable("ownerId") final int ownerId,
-                                             @RequestBody @Valid final Owner owner,
-                                             final BindingResult bindingResult,
-                                             final UriComponentsBuilder ucBuilder)
+            @RequestBody @Valid final Owner owner, final BindingResult bindingResult,
+            final UriComponentsBuilder ucBuilder)
     {
         boolean bodyIdMatchesPathId = owner.getId() == null || ownerId == owner.getId();
         if (bindingResult.hasErrors() || !bodyIdMatchesPathId)

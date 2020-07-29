@@ -78,8 +78,7 @@ public class SpecialtyRestController
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Specialty> addSpecialty(@RequestBody @Valid final Specialty specialty,
-                                                  final BindingResult bindingResult,
-                                                  final UriComponentsBuilder ucBuilder)
+            final BindingResult bindingResult, final UriComponentsBuilder ucBuilder)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();
@@ -97,8 +96,7 @@ public class SpecialtyRestController
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @RequestMapping(value = "/{specialtyId}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Specialty> updateSpecialty(@PathVariable("specialtyId") final int specialtyId,
-                                                     @RequestBody @Valid final Specialty specialty,
-                                                     final BindingResult bindingResult)
+            @RequestBody @Valid final Specialty specialty, final BindingResult bindingResult)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();

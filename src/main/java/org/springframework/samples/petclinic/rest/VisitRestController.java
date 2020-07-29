@@ -77,9 +77,8 @@ public class VisitRestController
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Visit> addVisit(@RequestBody @Valid final Visit visit,
-                                          final BindingResult bindingResult,
-                                          final UriComponentsBuilder ucBuilder)
+    public ResponseEntity<Visit> addVisit(@RequestBody @Valid final Visit visit, final BindingResult bindingResult,
+            final UriComponentsBuilder ucBuilder)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();
@@ -97,8 +96,7 @@ public class VisitRestController
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @RequestMapping(value = "/{visitId}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Visit> updateVisit(@PathVariable("visitId") final int visitId,
-                                             @RequestBody @Valid final Visit visit,
-                                             final BindingResult bindingResult)
+            @RequestBody @Valid final Visit visit, final BindingResult bindingResult)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();

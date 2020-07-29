@@ -8,5 +8,4 @@ import org.springframework.samples.petclinic.repository.UserRepository;
 
 @Profile("spring-data-jpa")
 public interface SpringDataUserRepository extends UserRepository, Repository<User, Integer>
-{
-}
+{}

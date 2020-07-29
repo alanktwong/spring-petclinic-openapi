@@ -62,9 +62,9 @@ public class ClinicServiceImpl implements ClinicService
     private PetTypeRepository petTypeRepository;
 
     @Autowired
-    public ClinicServiceImpl(final PetRepository petRepository, final VetRepository vetRepository, final OwnerRepository ownerRepository,
-                             final VisitRepository visitRepository, final SpecialtyRepository specialtyRepository,
-                             final PetTypeRepository petTypeRepository)
+    public ClinicServiceImpl(final PetRepository petRepository, final VetRepository vetRepository,
+            final OwnerRepository ownerRepository, final VisitRepository visitRepository,
+            final SpecialtyRepository specialtyRepository, final PetTypeRepository petTypeRepository)
     {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;

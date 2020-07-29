@@ -42,16 +42,15 @@ public class JacksonCustomOwnerDeserializer extends StdDeserializer<Owner>
     }
 
     @Override
-    public Owner deserialize(final JsonParser parser, final DeserializationContext context)
-        throws IOException
+    public Owner deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
     {
         final JsonNode node = parser.getCodec().readTree(parser);
         final var owner = new Owner();
         final var firstName = node.get("firstName").asText(null);
-        final var  lastName = node.get("lastName").asText(null);
-        final var  address = node.get("address").asText(null);
-        final var  city = node.get("city").asText(null);
-        final var  telephone = node.get("telephone").asText(null);
+        final var lastName = node.get("lastName").asText(null);
+        final var address = node.get("address").asText(null);
+        final var city = node.get("city").asText(null);
+        final var telephone = node.get("telephone").asText(null);
         if (node.hasNonNull("id"))
         {
             owner.setId(node.get("id").asInt());

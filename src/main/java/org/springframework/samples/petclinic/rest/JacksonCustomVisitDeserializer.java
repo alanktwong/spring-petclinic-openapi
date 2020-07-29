@@ -47,8 +47,7 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit>
     }
 
     @Override
-    public Visit deserialize(final JsonParser parser, final DeserializationContext context)
-        throws IOException
+    public Visit deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
     {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         var visit = new Visit();

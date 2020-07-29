@@ -43,8 +43,8 @@ public class UserRestController
 
     @PreAuthorize("hasRole(@roles.ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<User> addOwner(@RequestBody @Valid final User user,
-                                         final BindingResult bindingResult) throws Exception
+    public ResponseEntity<User> addOwner(@RequestBody @Valid final User user, final BindingResult bindingResult)
+        throws Exception
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();

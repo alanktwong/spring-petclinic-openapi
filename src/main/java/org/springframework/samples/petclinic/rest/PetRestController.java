@@ -90,9 +90,8 @@ public class PetRestController
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Pet> addPet(@RequestBody @Valid final Pet pet,
-                                      final BindingResult bindingResult,
-                                      final UriComponentsBuilder ucBuilder)
+    public ResponseEntity<Pet> addPet(@RequestBody @Valid final Pet pet, final BindingResult bindingResult,
+            final UriComponentsBuilder ucBuilder)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();
@@ -109,9 +108,8 @@ public class PetRestController
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @RequestMapping(value = "/{petId}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Pet> updatePet(@PathVariable("petId") final int petId,
-                                         @RequestBody @Valid final Pet pet,
-                                         final BindingResult bindingResult)
+    public ResponseEntity<Pet> updatePet(@PathVariable("petId") final int petId, @RequestBody @Valid final Pet pet,
+            final BindingResult bindingResult)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();

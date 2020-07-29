@@ -110,6 +110,7 @@
         </module>
         <module name="WhitespaceAround">
             <property name="severity" value="error"/>
+            <property name="allowEmptyTypes" value="true"/>
         </module>
         <module name="ModifierOrder">
             <property name="severity" value="warning"/>

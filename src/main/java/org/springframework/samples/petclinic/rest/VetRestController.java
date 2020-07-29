@@ -76,9 +76,8 @@ public class VetRestController
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Vet> addVet(@RequestBody @Valid final Vet vet,
-                                      final BindingResult bindingResult,
-                                      final UriComponentsBuilder ucBuilder)
+    public ResponseEntity<Vet> addVet(@RequestBody @Valid final Vet vet, final BindingResult bindingResult,
+            final UriComponentsBuilder ucBuilder)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();
@@ -95,9 +94,8 @@ public class VetRestController
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @RequestMapping(value = "/{vetId}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Vet> updateVet(@PathVariable("vetId") final int vetId,
-                                         @RequestBody @Valid final Vet vet,
-                                         final BindingResult bindingResult)
+    public ResponseEntity<Vet> updateVet(@PathVariable("vetId") final int vetId, @RequestBody @Valid final Vet vet,
+            final BindingResult bindingResult)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();

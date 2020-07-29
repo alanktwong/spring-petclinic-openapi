@@ -42,7 +42,8 @@ public class JacksonCustomOwnerSerializer extends StdSerializer<Owner>
     }
 
     @Override
-    public void serialize(final Owner owner, final JsonGenerator jgen, final SerializerProvider provider) throws IOException
+    public void serialize(final Owner owner, final JsonGenerator jgen, final SerializerProvider provider)
+        throws IOException
     {
         final var formatter = new SimpleDateFormat("yyyy/MM/dd");
         jgen.writeStartObject();

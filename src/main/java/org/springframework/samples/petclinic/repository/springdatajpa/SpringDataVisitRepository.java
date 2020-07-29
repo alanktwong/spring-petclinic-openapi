@@ -29,5 +29,4 @@ import org.springframework.samples.petclinic.repository.VisitRepository;
  */
 @Profile("spring-data-jpa")
 public interface SpringDataVisitRepository extends VisitRepository, Repository<Visit, Integer>, VisitRepositoryOverride
-{
-}
+{}

@@ -74,8 +74,7 @@ public class PetTypeRestController
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<PetType> addPetType(@RequestBody @Valid final PetType petType,
-                                              final BindingResult bindingResult,
-                                              final UriComponentsBuilder ucBuilder)
+            final BindingResult bindingResult, final UriComponentsBuilder ucBuilder)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();
@@ -93,8 +92,7 @@ public class PetTypeRestController
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @RequestMapping(value = "/{petTypeId}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<PetType> updatePetType(@PathVariable("petTypeId") final int petTypeId,
-                                                 @RequestBody @Valid final PetType petType,
-                                                 final BindingResult bindingResult)
+            @RequestBody @Valid final PetType petType, final BindingResult bindingResult)
     {
         final var errors = new BindingErrorsResponse();
         final var headers = new HttpHeaders();

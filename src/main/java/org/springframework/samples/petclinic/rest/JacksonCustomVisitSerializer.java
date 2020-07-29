@@ -43,7 +43,8 @@ public class JacksonCustomVisitSerializer extends StdSerializer<Visit>
     }
 
     @Override
-    public void serialize(final Visit visit, final JsonGenerator jgen, final SerializerProvider provider) throws IOException
+    public void serialize(final Visit visit, final JsonGenerator jgen, final SerializerProvider provider)
+        throws IOException
     {
         if ((visit == null) || (visit.getPet() == null))
         {

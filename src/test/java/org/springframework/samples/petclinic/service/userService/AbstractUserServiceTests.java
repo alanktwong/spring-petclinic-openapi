@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.service.userService;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Before;
@@ -11,18 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.UserService;
 
-public abstract class AbstractUserServiceTests {
+public abstract class AbstractUserServiceTests
+{
 
     @Autowired
     private UserService userService;
 
     @Before
-    public void init() {
+    public void init()
+    {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void shouldAddUser() throws Exception {
+    public void shouldAddUser() throws Exception
+    {
         User user = new User();
         user.setUsername("username");
         user.setPassword("password");

@@ -23,6 +23,7 @@ plugins {
     kotlin("plugin.allopen") version kotlinVersion
     kotlin("kapt") version kotlinVersion
 
+    id("com.diffplug.gradle.spotless") version "3.27.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.10.0"
 }
@@ -143,6 +144,14 @@ dependencies {
     // developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
+// Add spotless
+spotless {
+    java {
+        eclipse(Versions.eclipse).configFile("$rootDir/config/checkstyle/eclipse-formatter.xml")
+        removeUnusedImports()
+    }
+}
+
 // add checkstyle
 // https://github.com/alanktwong/spring-petclinic-openapi/issues/10
 checkstyle {
@@ -196,5 +205,35 @@ jib {
     to {
         image = "springcommunity/spring-petclinic-openapi"
         tags = setOf(project.version.toString(), "latest")
+    }
+}
+
+afterEvaluate {
+    if (!hasProperty("skipFormat")) {
+        tasks.named("checkstyleMain") {
+            dependsOn(":spotlessApply")
+        }
+        tasks.named("checkstyleTest") {
+            dependsOn(":spotlessApply")
+        }
+        tasks.named("spotlessCheck") {
+            dependsOn(":spotlessApply")
+        }
+    } else {
+        tasks.named("checkstyleMain") {
+            dependsOn(":spotlessCheck")
+        }
+        tasks.named("checkstyleTest") {
+            dependsOn(":spotlessCheck")
+        }
+    }
+
+    if (!hasProperty("skipJacoco")) {
+        tasks.named("jacocoTestReport") {
+            dependsOn(":jacocoTestCoverageVerification")
+        }
+        tasks.named("check") {
+            dependsOn(":jacocoTestReport")
+        }
     }
 }

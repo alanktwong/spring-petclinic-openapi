@@ -8,8 +8,8 @@ group = "org.springframework.samples"
 version = "2.2.5.RELEASE"
 
 plugins {
-    id("java")
-    // checkstyle
+    java
+    checkstyle
     jacoco
     // Increase spring boot version?
     id("org.springframework.boot") version "2.2.5.RELEASE"
@@ -105,7 +105,6 @@ detekt {
 
 dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
-    // checkstyleConfig("com.puppycrawl.tools:checkstyle:${Versions.checkstyle}") { transitive = false }
 
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
@@ -151,16 +150,23 @@ dependencies {
 
 // add checkstyle
 // https://github.com/alanktwong/spring-petclinic-openapi/issues/10
+checkstyle {
+    toolVersion = Versions.checkstyle
+    configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
 
-// checkstyle {
-//    toolVersion = Versions.checkstyle
-//    configFile = file("$rootDir/config/checkstyle/google_checkstyle.xml")
-//    configProperties = mapOf(
-//        "org.checkstyle.google.suppressionfilter.config" to file("$rootDir/config/checkstyle/suppressions.xml").absolutePath
-//    )
-//    isIgnoreFailures = false
-//    maxWarnings = 0
-// }
+    configProperties = mapOf(
+        "config_loc" to file("$rootDir/config/checkstyle/suppressions.xml").absolutePath
+    )
+    isIgnoreFailures = false
+    maxWarnings = 0
+    maxErrors = 0
+}
+
+tasks {
+    checkstyleMain {
+        exclude("**/package-info.java")
+    }
+}
 
 // add jacoco
 jacoco {

@@ -24,15 +24,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import javax.validation.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.samples.petclinic.rest.JacksonCustomVisitDeserializer;
-import org.springframework.samples.petclinic.rest.JacksonCustomVisitSerializer;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import org.springframework.samples.petclinic.rest.JacksonCustomVisitDeserializer;
+import org.springframework.samples.petclinic.rest.JacksonCustomVisitSerializer;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -43,15 +44,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name = "visits")
 @JsonSerialize(using = JacksonCustomVisitSerializer.class)
 @JsonDeserialize(using = JacksonCustomVisitDeserializer.class)
-public class Visit extends BaseEntity {
-
+public class Visit extends BaseEntity
+{
     /**
      * Holds value of property date.
      */
     @Column(name = "visit_date")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date date;
 
     /**
@@ -68,21 +69,21 @@ public class Visit extends BaseEntity {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-
     /**
      * Creates a new instance of Visit for the current date
      */
-    public Visit() {
+    public Visit()
+    {
         this.date = new Date();
     }
-
 
     /**
      * Getter for property date.
      *
      * @return Value of property date.
      */
-    public Date getDate() {
+    public Date getDate()
+    {
         return this.date;
     }
 
@@ -91,7 +92,8 @@ public class Visit extends BaseEntity {
      *
      * @param date New value of property date.
      */
-    public void setDate(Date date) {
+    public void setDate(final Date date)
+    {
         this.date = date;
     }
 
@@ -100,7 +102,8 @@ public class Visit extends BaseEntity {
      *
      * @return Value of property description.
      */
-    public String getDescription() {
+    public String getDescription()
+    {
         return this.description;
     }
 
@@ -109,7 +112,8 @@ public class Visit extends BaseEntity {
      *
      * @param description New value of property description.
      */
-    public void setDescription(String description) {
+    public void setDescription(final String description)
+    {
         this.description = description;
     }
 
@@ -118,7 +122,8 @@ public class Visit extends BaseEntity {
      *
      * @return Value of property pet.
      */
-    public Pet getPet() {
+    public Pet getPet()
+    {
         return this.pet;
     }
 
@@ -127,8 +132,8 @@ public class Visit extends BaseEntity {
      *
      * @param pet New value of property pet.
      */
-    public void setPet(Pet pet) {
+    public void setPet(final Pet pet)
+    {
         this.pet = pet;
     }
-
 }

@@ -33,15 +33,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PropertyComparator;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.samples.petclinic.rest.JacksonCustomPetDeserializer;
-import org.springframework.samples.petclinic.rest.JacksonCustomPetSerializer;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import org.springframework.samples.petclinic.rest.JacksonCustomPetDeserializer;
+import org.springframework.samples.petclinic.rest.JacksonCustomPetSerializer;
 
 /**
  * Simple business object representing a pet.
@@ -54,8 +55,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name = "pets")
 @JsonSerialize(using = JacksonCustomPetSerializer.class)
 @JsonDeserialize(using = JacksonCustomPetDeserializer.class)
-public class Pet extends NamedEntity {
-
+public class Pet extends NamedEntity
+{
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -72,51 +73,62 @@ public class Pet extends NamedEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
 
-
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(final Date birthDate)
+    {
         this.birthDate = birthDate;
     }
 
-    public Date getBirthDate() {
+    public Date getBirthDate()
+    {
         return this.birthDate;
     }
 
-    public PetType getType() {
+    public PetType getType()
+    {
         return this.type;
     }
 
-    public void setType(PetType type) {
+    public void setType(final PetType type)
+    {
         this.type = type;
     }
 
-    public Owner getOwner() {
+    public Owner getOwner()
+    {
         return this.owner;
     }
 
-    public void setOwner(Owner owner) {
+    public void setOwner(final Owner owner)
+    {
         this.owner = owner;
     }
+
     @JsonIgnore
-    protected Set<Visit> getVisitsInternal() {
-        if (this.visits == null) {
+    protected Set<Visit> getVisitsInternal()
+    {
+        if (this.visits == null)
+        {
             this.visits = new HashSet<>();
         }
         return this.visits;
     }
 
-    protected void setVisitsInternal(Set<Visit> visits) {
+    @SuppressWarnings("checkstyle:HiddenField")
+    protected void setVisitsInternal(final Set<Visit> visits)
+    {
         this.visits = visits;
     }
 
-    public List<Visit> getVisits() {
+    public List<Visit> getVisits()
+    {
         List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
         PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
         return Collections.unmodifiableList(sortedVisits);
     }
 
-    public void addVisit(Visit visit) {
+    public void addVisit(final Visit visit)
+    {
         getVisitsInternal().add(visit);
         visit.setPet(this);
     }
-
 }

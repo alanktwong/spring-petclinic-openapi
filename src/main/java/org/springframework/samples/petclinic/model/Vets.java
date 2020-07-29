@@ -28,16 +28,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Arjen Poutsma
  */
 @XmlRootElement
-public class Vets {
-
+public class Vets
+{
     private List<Vet> vets;
 
     @XmlElement
-    public List<Vet> getVetList() {
-        if (vets == null) {
+    public List<Vet> getVetList()
+    {
+        if (vets == null)
+        {
             vets = new ArrayList<>();
         }
         return vets;
     }
-
 }
